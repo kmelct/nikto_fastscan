@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 
-from subprocess import Popen, PIPE, call
+from subprocess import Popen, PIPE, call, DEVNULL
 import json
 import sys
 
@@ -8,7 +8,7 @@ domain = sys.argv[1]
 ports = sys.argv[2]
 
 call(['nikto.pl', '-Display', 'V', '-o', 'results.csv',
-      '-Format', 'csv', '-C', 'all', '-h', domain, '-p', ports])
+      '-Format', 'csv', '-C', 'all', '-h', domain, '-p', ports], stdout=DEVNULL)
 
 p = Popen(['cat', 'results.csv'],
           stdout=PIPE, stderr=PIPE)
