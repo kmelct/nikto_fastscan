@@ -5,9 +5,10 @@ import json
 import sys
 
 domain = sys.argv[1]
+ports = sys.argv[2]
 
 call(['nikto.pl', '-Display', 'V', '-o', 'results.csv',
-      '-Format', 'csv', '-Tuning', '9', '-h', domain])
+      '-Format', 'csv', '-C', 'all', '-h', domain, '-p', ports])
 
 p = Popen(['cat', 'results.csv'],
           stdout=PIPE, stderr=PIPE)
