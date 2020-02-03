@@ -26,7 +26,7 @@ for res in result:
     vulns.append({'title': vulnFiltered[6].split('.')[0],
                   'description': "".join(vulnFiltered[6:]),
                   'status': 'Medium',
-                  'solution': 'Update your host: {}'.format(vulnFiltered[1]),
+                  'solution': '',
                   'tool': 'Nikto',
                   'group': 'Website Security Results'
                   })
