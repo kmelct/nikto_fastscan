@@ -17,18 +17,21 @@ result = out.decode("utf-8").split('\n')
 
 vulns = []
 for res in result:
-    if 'Nikto' in res or len(res) < 7:
+    if 'Nikto' in res or 'Potentially' in res or len(res) < 7:
         continue
     vuln = res.split(',')
     vulnFiltered = (list(map(lambda x: x.replace('"', ''), vuln)))
     if vulnFiltered[3] == '':
         continue
-    vulns.append({'title': vulnFiltered[6].split('.')[0],
-                  'description': "".join(vulnFiltered[6:]),
-                  'status': 'Medium',
-                  'solution': '',
-                  'tool': 'Nikto',
-                  'group': 'Website Security Results'
-                  })
+    found = next(
+        (item for item in vulns if item["title"] == vulnFiltered[6].split('.')[0]), False)
+    if not found:
+        vulns.append({'title': vulnFiltered[6].split('.')[0],
+                      'description': "".join(vulnFiltered[6:]),
+                      'status': 'Medium',
+                      'solution': '',
+                      'tool': 'Nikto',
+                      'group': 'Website Security Results'
+                      })
 
 print(json.dumps(vulns))
